@@ -9,7 +9,7 @@ import { Notification } from '../../core/models/notification.model';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.scss']
+  styles: []
 })
 export class NotificationsComponent implements OnInit {
   notifications: Notification[] = [];

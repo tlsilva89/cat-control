@@ -9,7 +9,7 @@ import { Finance, FinanceSummary } from '../../core/models/finance.model';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './finance.component.html',
-  styleUrls: ['./finance.component.scss']
+  styles: []
 })
 export class FinanceComponent implements OnInit {
   finances: Finance[] = [];

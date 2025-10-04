@@ -11,7 +11,7 @@ import { Cat } from '../../core/models/cat.model';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './vaccines.component.html',
-  styleUrls: ['./vaccines.component.scss']
+  styles: []
 })
 export class VaccinesComponent implements OnInit {
   vaccines: Vaccine[] = [];

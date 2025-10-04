@@ -11,7 +11,7 @@ import { Cat } from '../../core/models/cat.model';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './wishlist.component.html',
-  styleUrls: ['./wishlist.component.scss']
+  styles: []
 })
 export class WishlistComponent implements OnInit {
   wishlist: Wishlist[] = [];

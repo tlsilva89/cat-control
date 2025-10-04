@@ -9,7 +9,7 @@ import { Cat } from '../../core/models/cat.model';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './cats.component.html',
-  styleUrls: ['./cats.component.scss']
+  styles: []
 })
 export class CatsComponent implements OnInit {
   cats: Cat[] = [];

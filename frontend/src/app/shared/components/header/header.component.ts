@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styles: []
 })
 export class HeaderComponent implements OnInit {
   userName = '';
@@ -36,4 +36,3 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
   }
 }
-c

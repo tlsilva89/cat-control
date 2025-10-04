@@ -16,7 +16,7 @@ import { Notification } from '../../core/models/notification.model';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styles: []
 })
 export class DashboardComponent implements OnInit {
   cats: Cat[] = [];

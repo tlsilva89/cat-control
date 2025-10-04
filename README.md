@@ -332,13 +332,4 @@ Este projeto está sob a licença MIT.
 
 ***
 
-**Desenvolvido com 💙 para tutores que amam seus gatos**
-
-[1](https://angular.dev/reference/configs/file-structure)
-[2](https://www.youtube.com/watch?v=8BtQXFm5ufA)
-[3](https://www.angulararchitects.io/blog/the-perfect-project-setup-for-angular-structure-and-automation-for-more-quality/)
-[4](https://stackoverflow.com/questions/78526073/what-is-the-proper-way-to-reference-assets-in-the-new-angular-18-public-folder)
-[5](https://www.bairesdev.com/blog/angular-project-structure-best-practices-tips/)
-[6](https://angular.dev/reference/configs/workspace-config)
-[7](https://nx.dev/blog/architecting-angular-applications)
-[8](https://www.youtube.com/watch?v=c6BPUIUHG6o)
+**Desenvolvido com carinho para tutores que amam seus gatos**

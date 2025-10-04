@@ -1,5 +1,14 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { LoginComponent } from './features/auth/login/login.component';
+import { RegisterComponent } from './features/auth/register/register.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { CatsComponent } from './features/cats/cats.component';
+import { VaccinesComponent } from './features/vaccines/vaccines.component';
+import { StockComponent } from './features/stock/stock.component';
+import { FinanceComponent } from './features/finance/finance.component';
+import { WishlistComponent } from './features/wishlist/wishlist.component';
+import { NotificationsComponent } from './features/notifications/notifications.component';
 
 export const routes: Routes = [
   {
@@ -9,42 +18,56 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: () => import('./features/auth/auth.routes').then(m => m.AUTH_ROUTES)
+    children: [
+      {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'register',
+        component: RegisterComponent
+      },
+      {
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full'
+      }
+    ]
   },
   {
     path: 'dashboard',
     canActivate: [authGuard],
-    loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
+    component: DashboardComponent
   },
   {
     path: 'cats',
     canActivate: [authGuard],
-    loadChildren: () => import('./features/cats/cats.routes').then(m => m.CATS_ROUTES)
+    component: CatsComponent
   },
   {
     path: 'vaccines',
     canActivate: [authGuard],
-    loadChildren: () => import('./features/vaccines/vaccines.routes').then(m => m.VACCINES_ROUTES)
+    component: VaccinesComponent
   },
   {
     path: 'stock',
     canActivate: [authGuard],
-    loadChildren: () => import('./features/stock/stock.routes').then(m => m.STOCK_ROUTES)
+    component: StockComponent
   },
   {
     path: 'finance',
     canActivate: [authGuard],
-    loadChildren: () => import('./features/finance/finance.routes').then(m => m.FINANCE_ROUTES)
+    component: FinanceComponent
   },
   {
     path: 'wishlist',
     canActivate: [authGuard],
-    loadChildren: () => import('./features/wishlist/wishlist.routes').then(m => m.WISHLIST_ROUTES)
+    component: WishlistComponent
   },
   {
     path: 'notifications',
     canActivate: [authGuard],
-    loadChildren: () => import('./features/notifications/notifications.routes').then(m => m.NOTIFICATIONS_ROUTES)
+    component: NotificationsComponent
   },
   {
     path: '**',

@@ -9,7 +9,7 @@ import { Stock } from '../../core/models/stock.model';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './stock.component.html',
-  styleUrls: ['./stock.component.scss']
+  styles: []
 })
 export class StockComponent implements OnInit {
   stocks: Stock[] = [];
