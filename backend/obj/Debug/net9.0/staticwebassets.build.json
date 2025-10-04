@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "HXW2iatV12ZIRnrxDPUL8zUK3FyD/W36Tn5EnW6r96k=",
+  "Source": "CatControl.Api",
+  "BasePath": "_content/CatControl.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

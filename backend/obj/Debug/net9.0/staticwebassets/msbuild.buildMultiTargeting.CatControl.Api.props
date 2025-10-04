@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/CatControl.Api.props" />
+</Project>

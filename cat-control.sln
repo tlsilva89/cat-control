@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatControl.Api", "backend\CatControl.Api.csproj", "{F7444469-CE9B-245D-045C-003E787BBD1B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7444469-CE9B-245D-045C-003E787BBD1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7444469-CE9B-245D-045C-003E787BBD1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7444469-CE9B-245D-045C-003E787BBD1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7444469-CE9B-245D-045C-003E787BBD1B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64DA0AC4-ED7F-456C-9A6B-0C91AF69CCCF}
+	EndGlobalSection
+EndGlobal
