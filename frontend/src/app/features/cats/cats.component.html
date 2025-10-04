@@ -1,0 +1,71 @@
+<div class="min-h-screen bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex justify-between items-center mb-8">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900">Meus Gatos</h1>
+        <p class="mt-2 text-sm text-gray-600">Gerencie informações dos seus felinos</p>
+      </div>
+      <button routerLink="/cats/new"
+        class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
+        + Adicionar Gato
+      </button>
+    </div>
+
+    <div *ngIf="loading" class="flex justify-center items-center h-64">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+    </div>
+
+    <div *ngIf="!loading && cats.length === 0" class="text-center py-12">
+      <div class="text-6xl mb-4">🐱</div>
+      <h3 class="text-lg font-medium text-gray-900 mb-2">Nenhum gato cadastrado</h3>
+      <p class="text-gray-600 mb-6">Comece adicionando seu primeiro felino</p>
+      <button routerLink="/cats/new"
+        class="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
+        Adicionar Primeiro Gato
+      </button>
+    </div>
+
+    <div *ngIf="!loading && cats.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div *ngFor="let cat of cats"
+        class="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition-shadow">
+        <div
+          class="h-48 bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white text-6xl">
+          🐱
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ cat.nome }}</h3>
+          <div class="space-y-2 text-sm text-gray-600 mb-4">
+            <p *ngIf="cat.raca">
+              <span class="font-medium">Raça:</span> {{ cat.raca }}
+            </p>
+            <p *ngIf="cat.idadeAnos || cat.idadeMeses">
+              <span class="font-medium">Idade:</span>
+              <span *ngIf="cat.idadeAnos">{{ cat.idadeAnos }} anos</span>
+              <span *ngIf="cat.idadeMeses"> e {{ cat.idadeMeses }} meses</span>
+            </p>
+            <p *ngIf="cat.peso">
+              <span class="font-medium">Peso:</span> {{ cat.peso }} kg
+            </p>
+            <p>
+              <span class="font-medium">Status:</span>
+              <span class="ml-1 px-2 py-1 rounded-full text-xs"
+                [ngClass]="cat.castrado ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'">
+                {{ cat.castrado ? 'Castrado' : 'Não castrado' }}
+              </span>
+            </p>
+          </div>
+          <div class="flex space-x-2">
+            <button [routerLink]="['/cats', cat.id]"
+              class="flex-1 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm">
+              Ver Detalhes
+            </button>
+            <button (click)="deleteCat(cat.id)"
+              class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm">
+              🗑️
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

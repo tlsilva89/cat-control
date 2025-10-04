@@ -1,0 +1,11 @@
+<aside class="w-64 bg-white shadow-sm h-full">
+  <nav class="mt-5 px-2">
+    <div class="space-y-1">
+      <a *ngFor="let item of menuItems" [routerLink]="item.path" routerLinkActive="bg-primary-50 text-primary-600"
+        class="group flex items-center px-4 py-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50 hover:text-primary-600 transition-colors">
+        <span class="mr-3">📋</span>
+        {{ item.label }}
+      </a>
+    </div>
+  </nav>
+</aside>

@@ -1,0 +1,127 @@
+<div class="min-h-screen bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+      <p class="mt-2 text-sm text-gray-600">Visão geral dos seus gatos e cuidados</p>
+    </div>
+
+    <div *ngIf="loading" class="flex justify-center items-center h-64">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+    </div>
+
+    <div *ngIf="!loading">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white rounded-lg shadow p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-gray-600">Total de Gatos</p>
+              <p class="text-3xl font-bold text-gray-900">{{ stats.totalCats }}</p>
+            </div>
+            <div class="text-4xl">🐱</div>
+          </div>
+          <a routerLink="/cats" class="mt-4 text-sm text-primary-600 hover:text-primary-700">
+            Ver todos →
+          </a>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-gray-600">Vacinas Próximas</p>
+              <p class="text-3xl font-bold text-gray-900">{{ stats.upcomingVaccines }}</p>
+            </div>
+            <div class="text-4xl">💉</div>
+          </div>
+          <a routerLink="/vaccines" class="mt-4 text-sm text-primary-600 hover:text-primary-700">
+            Ver detalhes →
+          </a>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-gray-600">Estoque Baixo</p>
+              <p class="text-3xl font-bold text-gray-900">{{ stats.lowStockItems }}</p>
+            </div>
+            <div class="text-4xl">📦</div>
+          </div>
+          <a routerLink="/stock" class="mt-4 text-sm text-primary-600 hover:text-primary-700">
+            Repor itens →
+          </a>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-gray-600">Gasto Mensal</p>
+              <p class="text-3xl font-bold text-gray-900">R$ {{ stats.monthlyExpense | number:'1.2-2' }}</p>
+            </div>
+            <div class="text-4xl">💰</div>
+          </div>
+          <a routerLink="/finance" class="mt-4 text-sm text-primary-600 hover:text-primary-700">
+            Ver relatório →
+          </a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white rounded-lg shadow">
+          <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-900">Meus Gatos</h2>
+          </div>
+          <div class="p-6">
+            <div *ngIf="cats.length === 0" class="text-center py-8">
+              <p class="text-gray-500 mb-4">Nenhum gato cadastrado ainda</p>
+              <a routerLink="/cats" class="text-primary-600 hover:text-primary-700 font-medium">
+                Adicionar primeiro gato
+              </a>
+            </div>
+            <div *ngIf="cats.length > 0" class="space-y-4">
+              <div *ngFor="let cat of cats.slice(0, 3)" class="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+                <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center text-2xl">
+                  🐱
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-semibold text-gray-900">{{ cat.nome }}</h3>
+                  <p class="text-sm text-gray-600">
+                    <span *ngIf="cat.idadeAnos">{{ cat.idadeAnos }} anos</span>
+                    <span *ngIf="cat.idadeMeses"> e {{ cat.idadeMeses }} meses</span>
+                    <span *ngIf="cat.raca"> • {{ cat.raca }}</span>
+                  </p>
+                </div>
+              </div>
+              <a routerLink="/cats" class="block text-center text-sm text-primary-600 hover:text-primary-700">
+                Ver todos os gatos
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow">
+          <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-900">Notificações Recentes</h2>
+          </div>
+          <div class="p-6">
+            <div *ngIf="recentNotifications.length === 0" class="text-center py-8">
+              <p class="text-gray-500">Nenhuma notificação no momento</p>
+            </div>
+            <div *ngIf="recentNotifications.length > 0" class="space-y-4">
+              <div *ngFor="let notification of recentNotifications" class="p-4 rounded-lg" [ngClass]="{
+                     'bg-red-50': notification.prioridade === 'Alta',
+                     'bg-yellow-50': notification.prioridade === 'Normal',
+                     'bg-gray-50': notification.prioridade === 'Baixa'
+                   }">
+                <h3 class="font-semibold text-gray-900">{{ notification.titulo }}</h3>
+                <p class="text-sm text-gray-600 mt-1">{{ notification.mensagem }}</p>
+                <p class="text-xs text-gray-500 mt-2">{{ notification.dataNotificacao | date:'dd/MM/yyyy' }}</p>
+              </div>
+              <a routerLink="/notifications" class="block text-center text-sm text-primary-600 hover:text-primary-700">
+                Ver todas as notificações
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
