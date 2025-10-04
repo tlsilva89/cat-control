@@ -62,7 +62,6 @@ public class FinanceService : IFinanceService
     
     public async Task<FinanceDto?> CreateFinance(CreateFinanceDto createFinanceDto, int userId)
     {
-        // Se CatId foi informado, verificar se pertence ao usuário
         if (createFinanceDto.CatId.HasValue)
         {
             var cat = await _context.Cats.FirstOrDefaultAsync(c => c.Id == createFinanceDto.CatId.Value && c.UserId == userId);
@@ -87,7 +86,6 @@ public class FinanceService : IFinanceService
         _context.Finances.Add(finance);
         await _context.SaveChangesAsync();
         
-        // Recarregar com Cat se necessário
         await _context.Entry(finance).Reference(f => f.Cat).LoadAsync();
         
         return MapToFinanceDto(finance);
@@ -101,7 +99,6 @@ public class FinanceService : IFinanceService
         
         if (finance == null) return null;
         
-        // Se CatId foi informado, verificar se pertence ao usuário
         if (updateFinanceDto.CatId.HasValue)
         {
             var cat = await _context.Cats.FirstOrDefaultAsync(c => c.Id == updateFinanceDto.CatId.Value && c.UserId == userId);
@@ -120,8 +117,6 @@ public class FinanceService : IFinanceService
         finance.UpdatedAt = DateTime.UtcNow;
         
         await _context.SaveChangesAsync();
-        
-        // Recarregar Cat
         await _context.Entry(finance).Reference(f => f.Cat).LoadAsync();
         
         return MapToFinanceDto(finance);
@@ -144,7 +139,6 @@ public class FinanceService : IFinanceService
     {
         var query = _context.Finances.Where(f => f.UserId == userId);
         
-        // Filtrar por ano/mês se fornecido
         if (year.HasValue && month.HasValue)
         {
             query = query.Where(f => f.DataGasto.Year == year.Value && f.DataGasto.Month == month.Value);
@@ -155,7 +149,6 @@ public class FinanceService : IFinanceService
         }
         else
         {
-            // Padrão: mês atual
             var now = DateTime.UtcNow;
             query = query.Where(f => f.DataGasto.Year == now.Year && f.DataGasto.Month == now.Month);
         }

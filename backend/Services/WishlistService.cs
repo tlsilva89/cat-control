@@ -53,7 +53,6 @@ public class WishlistService : IWishlistService
     
     public async Task<WishlistDto?> CreateWishlistItem(CreateWishlistDto createWishlistDto, int userId)
     {
-        // Se CatId foi informado, verificar se pertence ao usuário
         if (createWishlistDto.CatId.HasValue)
         {
             var cat = await _context.Cats.FirstOrDefaultAsync(c => c.Id == createWishlistDto.CatId.Value && c.UserId == userId);
@@ -77,7 +76,6 @@ public class WishlistService : IWishlistService
         _context.Wishlists.Add(wishlist);
         await _context.SaveChangesAsync();
         
-        // Recarregar com Cat
         await _context.Entry(wishlist).Reference(w => w.Cat).LoadAsync();
         
         return MapToWishlistDto(wishlist);
@@ -91,7 +89,6 @@ public class WishlistService : IWishlistService
         
         if (wishlist == null) return null;
         
-        // Se CatId foi informado, verificar se pertence ao usuário
         if (updateWishlistDto.CatId.HasValue)
         {
             var cat = await _context.Cats.FirstOrDefaultAsync(c => c.Id == updateWishlistDto.CatId.Value && c.UserId == userId);
@@ -111,8 +108,6 @@ public class WishlistService : IWishlistService
         wishlist.UpdatedAt = DateTime.UtcNow;
         
         await _context.SaveChangesAsync();
-        
-        // Recarregar Cat
         await _context.Entry(wishlist).Reference(w => w.Cat).LoadAsync();
         
         return MapToWishlistDto(wishlist);

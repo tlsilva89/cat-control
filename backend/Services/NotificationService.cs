@@ -58,7 +58,6 @@ public class NotificationService : INotificationService
     
     public async Task<NotificationDto?> CreateNotification(CreateNotificationDto createNotificationDto, int userId)
     {
-        // Se CatId foi informado, verificar se pertence ao usuário
         if (createNotificationDto.CatId.HasValue)
         {
             var cat = await _context.Cats.FirstOrDefaultAsync(c => c.Id == createNotificationDto.CatId.Value && c.UserId == userId);
@@ -82,7 +81,6 @@ public class NotificationService : INotificationService
         _context.Notifications.Add(notification);
         await _context.SaveChangesAsync();
         
-        // Recarregar com Cat
         await _context.Entry(notification).Reference(n => n.Cat).LoadAsync();
         
         return MapToNotificationDto(notification);
@@ -134,63 +132,6 @@ public class NotificationService : INotificationService
     {
         return await _context.Notifications
             .CountAsync(n => n.UserId == userId && !n.Lida);
-    }
-    
-    public async Task CreateVaccineNotification(int vaccineId, int userId)
-    {
-        var vaccine = await _context.Vaccines
-            .Include(v => v.Cat)
-            .FirstOrDefaultAsync(v => v.Id == vaccineId && v.Cat.UserId == userId);
-        
-        if (vaccine == null || !vaccine.ProximaAplicacao.HasValue) return;
-        
-        // Criar notificação 7 dias antes
-        var dataNotificacao = vaccine.ProximaAplicacao.Value.AddDays(-7);
-        
-        var notification = new Notification
-        {
-            UserId = userId,
-            CatId = vaccine.CatId,
-            Tipo = "Vacina",
-            Titulo = $"Vacina {vaccine.TipoVacina} próxima",
-            Mensagem = $"A vacina {vaccine.TipoVacina} do {vaccine.Cat.Nome} vence em 7 dias ({vaccine.ProximaAplicacao.Value:dd/MM/yyyy})",
-            DataNotificacao = dataNotificacao,
-            Prioridade = "Alta",
-            ReferenciaId = vaccineId,
-            Lida = false,
-            CreatedAt = DateTime.UtcNow
-        };
-        
-        _context.Notifications.Add(notification);
-        await _context.SaveChangesAsync();
-    }
-    
-    public async Task CreateStockNotification(int stockId, int userId)
-    {
-        var stock = await _context.Stocks
-            .FirstOrDefaultAsync(s => s.Id == stockId && s.UserId == userId);
-        
-        if (stock == null) return;
-        
-        // Criar notificação se estoque baixo
-        if (stock.QuantidadeAtual <= stock.QuantidadeMinima)
-        {
-            var notification = new Notification
-            {
-                UserId = userId,
-                Tipo = "Estoque",
-                Titulo = "Estoque baixo",
-                Mensagem = $"O estoque de {stock.NomeProduto} está baixo ({stock.QuantidadeAtual} {stock.Unidade})",
-                DataNotificacao = DateTime.UtcNow,
-                Prioridade = "Normal",
-                ReferenciaId = stockId,
-                Lida = false,
-                CreatedAt = DateTime.UtcNow
-            };
-            
-            _context.Notifications.Add(notification);
-            await _context.SaveChangesAsync();
-        }
     }
     
     private NotificationDto MapToNotificationDto(Notification notification)

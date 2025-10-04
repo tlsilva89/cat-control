@@ -52,7 +52,6 @@ public class VaccineService : IVaccineService
     
     public async Task<VaccineDto?> CreateVaccine(CreateVaccineDto createVaccineDto, int userId)
     {
-        // Verificar se o gato pertence ao usuário
         var cat = await _context.Cats.FirstOrDefaultAsync(c => c.Id == createVaccineDto.CatId && c.UserId == userId);
         if (cat == null) return null;
         

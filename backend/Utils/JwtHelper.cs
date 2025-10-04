@@ -16,9 +16,12 @@ public class JwtHelper
     
     public string GenerateToken(int userId, string email, string nome)
     {
-        var jwtKey = _configuration["Jwt:Key"];
-        var issuer = _configuration["Jwt:Issuer"];
-        var audience = _configuration["Jwt:Audience"];
+        var jwtKey = _configuration["Jwt:Key"] 
+            ?? throw new InvalidOperationException("Jwt:Key não configurado no appsettings.json");
+        var issuer = _configuration["Jwt:Issuer"] 
+            ?? throw new InvalidOperationException("Jwt:Issuer não configurado no appsettings.json");
+        var audience = _configuration["Jwt:Audience"] 
+            ?? throw new InvalidOperationException("Jwt:Audience não configurado no appsettings.json");
         var expiryHours = int.Parse(_configuration["Jwt:ExpiryInHours"] ?? "24");
         
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));

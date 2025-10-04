@@ -12,6 +12,4 @@ public interface INotificationService
     Task<bool> MarkAllAsRead(int userId);
     Task<bool> DeleteNotification(int notificationId, int userId);
     Task<int> GetUnreadCount(int userId);
-    Task CreateVaccineNotification(int vaccineId, int userId);
-    Task CreateStockNotification(int stockId, int userId);
 }

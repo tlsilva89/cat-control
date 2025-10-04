@@ -19,13 +19,11 @@ public class AuthService : IAuthService
     
     public async Task<AuthResponseDto?> Register(RegisterDto registerDto)
     {
-        // Verificar se email já existe
         if (await EmailExists(registerDto.Email))
         {
             return null;
         }
         
-        // Criar novo usuário
         var user = new User
         {
             Nome = registerDto.Nome,
@@ -37,7 +35,6 @@ public class AuthService : IAuthService
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
         
-        // Gerar token
         var token = _jwtHelper.GenerateToken(user.Id, user.Email, user.Nome);
         
         return new AuthResponseDto
@@ -51,7 +48,6 @@ public class AuthService : IAuthService
     
     public async Task<AuthResponseDto?> Login(LoginDto loginDto)
     {
-        // Buscar usuário por email
         var user = await _context.Users
             .FirstOrDefaultAsync(u => u.Email == loginDto.Email.ToLower());
         
@@ -60,13 +56,11 @@ public class AuthService : IAuthService
             return null;
         }
         
-        // Verificar senha
         if (!PasswordHelper.VerifyPassword(loginDto.Password, user.PasswordHash))
         {
             return null;
         }
         
-        // Gerar token
         var token = _jwtHelper.GenerateToken(user.Id, user.Email, user.Nome);
         
         return new AuthResponseDto
